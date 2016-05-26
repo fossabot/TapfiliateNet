@@ -174,6 +174,26 @@ namespace TapfiliateNet
             return response.StatusCode == HttpStatusCode.NoContent;
         }
 
+        public bool SetAffiliateParent(string childAffiliateId, string parentAffiliateId)
+        {
+            var url = GetRequestUrl("/affiliates/{0}/parent/", childAffiliateId);
+
+            var payLoad = JsonConvert.SerializeObject(new { affiliate = new { id = parentAffiliateId } });
+
+            var response = HttpClient.PostAsync(url, new StringContent(payLoad)).Result;
+            
+            return response.StatusCode == HttpStatusCode.NoContent;
+        }
+
+        public bool DeleteAffiliateParent(string childAffiliateId)
+        {
+            var url = GetRequestUrl("/affiliates/{0}/parent/", childAffiliateId);
+
+            var response = HttpClient.DeleteAsync(url).Result;
+
+            return response.StatusCode == HttpStatusCode.NoContent;
+        }
+
         #endregion
 
         #region Conversion
