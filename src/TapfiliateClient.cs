@@ -348,7 +348,7 @@ namespace TapfiliateNet
             return GetResponse<IList<Program>>(response);
         }
 
-        public bool AddAffiliateToProgram(string programId, string affiliateId, bool? approved)
+        public string AddAffiliateToProgram(string programId, string affiliateId, bool? approved)
         {
             var url = GetRequestUrl("/programs/{0}/affiliates/", programId);
 
@@ -356,7 +356,8 @@ namespace TapfiliateNet
 
             var response = HttpClient.PostAsync(url, new StringContent(payLoad)).Result;
 
-            return response.StatusCode == HttpStatusCode.OK;
+            ProgramAffiliateReferralLink referralLink = GetResponse<ProgramAffiliateReferralLink>(response);
+            return referralLink.Link;
         }
 
         public bool ApproveAffiliate(string programId, string affiliateId)
@@ -385,6 +386,58 @@ namespace TapfiliateNet
 
             return GetResponse<ProgramAffiliate>(response);
         }
+
+        #endregion
+
+        #region Payout
+
+        public Payout GetPayout(string payoutId)
+        {
+            var url = GetRequestUrl("/payouts/{0}/", payoutId);
+
+            var response = HttpClient.GetAsync(url).Result;
+
+            return GetResponse<Payout>(response);
+        }
+
+        public IList<Payout> GetAllPayouts()
+        {
+            var url = GetRequestUrl("/payouts/");
+
+            var response = HttpClient.GetAsync(url).Result;
+
+            return GetResponse<IList<Payout>>(response);
+        }
+
+        public IList<Payout> CreatePayout(DateTime upToDate)
+        {
+            var url = GetRequestUrl("/payouts/");
+
+            var payLoad = JsonConvert.SerializeObject(new { up_to = upToDate.ToString("yyyy-MM-dd") });
+
+            var response = HttpClient.PostAsync(url, new StringContent(payLoad)).Result;
+
+            return GetResponse<IList<Payout>>(response);
+        }
+
+        public bool MarkPayoutAsPaid(string payoutId)
+        {
+            var url = GetRequestUrl("/payouts/{0}/paid", payoutId);
+
+            var response = HttpClient.PutAsync(url, null).Result;
+
+            return response.StatusCode == HttpStatusCode.NoContent;
+        }
+
+        public bool MarkPayoutAsUnpaid(string payoutId)
+        {
+            var url = GetRequestUrl("/payouts/{0}/paid", payoutId);
+
+            var response = HttpClient.DeleteAsync(url).Result;
+
+            return response.StatusCode == HttpStatusCode.NoContent;
+        }
+
 
         #endregion
 

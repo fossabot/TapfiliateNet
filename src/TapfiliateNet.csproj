@@ -47,10 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Affiliate.cs" />
+    <Compile Include="Model\AffiliateBase.cs" />
     <Compile Include="Model\Commission.cs" />
     <Compile Include="Model\Conversion.cs" />
     <Compile Include="Model\Payout.cs" />
     <Compile Include="Model\Program.cs" />
+    <Compile Include="Model\ProgramAffiliate.cs" />
+    <Compile Include="Model\ProgramAffiliateReferralLink.cs" />
     <Compile Include="Request\AffiliateRequest.cs" />
     <Compile Include="Request\CommissionRequest.cs" />
     <Compile Include="Request\ConversionRequest.cs" />
