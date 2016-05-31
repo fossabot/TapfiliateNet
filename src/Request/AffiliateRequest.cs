@@ -13,7 +13,7 @@ namespace TapfiliateNet.Request
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        [JsonProperty("password")]
+        [JsonProperty("password", NullValueHandling = NullValueHandling.Ignore)]
         public string Password { get; set; }
 
         [JsonProperty("company")]
