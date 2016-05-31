@@ -48,18 +48,17 @@ namespace TapfiliateNet
         {
             get
             {
-                using (var client = new HttpClient())
+                var client = new HttpClient();
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Api-Key", _apiKey);
+
+                if (_timeout != 0)
                 {
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    client.DefaultRequestHeaders.Add("Api-Key", _apiKey);
-
-                    if (_timeout != 0)
-                    {
-                        client.Timeout = TimeSpan.FromSeconds(_timeout);
-                    }
-
-                    return client;
+                    client.Timeout = TimeSpan.FromSeconds(_timeout);
                 }
+
+                return client;
             }
         }
 
