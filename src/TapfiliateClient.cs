@@ -454,15 +454,16 @@ namespace TapfiliateNet
         private T GetResponse<T>(HttpResponseMessage response)
         {
             var body = response.Content.ReadAsStringAsync().Result;
-
-            response.EnsureSuccessStatusCode();
-
+            
             if (response.IsSuccessStatusCode)
             {
                 return JsonConvert.DeserializeObject<T>(body);
             }
 
-            throw new Exception(response.StatusCode + " - " + body);
+            var error = JsonConvert.DeserializeObject<TapfiliateError>(body);
+            error.Code = (int)response.StatusCode;
+
+            throw new TapfiliateException(error, body);
         }
 
         private string AddQueryStringToUrl(string url,string key, string value)

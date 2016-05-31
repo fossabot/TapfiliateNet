@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\TapfiliateException.cs" />
     <Compile Include="Model\Affiliate.cs" />
     <Compile Include="Model\AffiliateBase.cs" />
     <Compile Include="Model\Commission.cs" />
