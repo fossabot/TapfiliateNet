@@ -22,7 +22,7 @@ namespace TapfiliateNet.Model
         public DateTime CreatedAt { get; set; }
 
         [JsonProperty("payout")]
-        public int Payout { get; set; }
+        public int? Payout { get; set; }
 
         [JsonProperty("commission_type")]
         public string CommissionType { get; set; }
