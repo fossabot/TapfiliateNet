@@ -26,6 +26,12 @@ namespace TapfiliateNet.Model
 
         [JsonProperty("company")]
         public AffiliateCompany Company { get; set; }
+
+        [JsonProperty("address")]
+        public AffiliateAddress Address { get; set; }
+
+        [JsonProperty("parent_id")]
+        public string ParentId { get; set; }
     }
 
     public class AffiliateCompany
@@ -33,14 +39,17 @@ namespace TapfiliateNet.Model
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("address")]
-        public AffiliateCompanyAddress Address { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; }
     }
 
-    public class AffiliateCompanyAddress
+    public class AffiliateAddress
     {
         [JsonProperty("address")]
         public string StreetAddress { get; set; }
+
+        [JsonProperty("address_two")]
+        public string StreetAddressTwo { get; set; }
 
         [JsonProperty("postal_code")]
         public string Postcode { get; set; }
@@ -52,13 +61,14 @@ namespace TapfiliateNet.Model
         public string State { get; set; }
 
         [JsonProperty("country")]
-        public AffiliateCompanyAddressCountry Country { get; set; }
+        public AffiliateAddressCountry Country { get; set; }
     }
 
-    public class AffiliateCompanyAddressCountry
+    public class AffiliateAddressCountry
     {
         [JsonProperty("code")]
         public string Code { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
     }

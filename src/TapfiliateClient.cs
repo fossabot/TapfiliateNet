@@ -351,7 +351,7 @@ namespace TapfiliateNet
             return GetResponse<IList<Program>>(response);
         }
 
-        public string AddAffiliateToProgram(string programId, string affiliateId, bool? approved)
+        public ProgramAffiliateReferralLink AddAffiliateToProgram(string programId, string affiliateId, bool? approved)
         {
             var url = GetRequestUrl("/programs/{0}/affiliates/", programId);
 
@@ -359,8 +359,7 @@ namespace TapfiliateNet
 
             var response = HttpClient.PostAsync(url, new StringContent(payLoad)).Result;
 
-            ProgramAffiliateReferralLink referralLink = GetResponse<ProgramAffiliateReferralLink>(response);
-            return referralLink.Link;
+            return GetResponse<ProgramAffiliateReferralLink>(response);
         }
 
         public bool ApproveAffiliate(string programId, string affiliateId)
@@ -379,6 +378,15 @@ namespace TapfiliateNet
             var response = HttpClient.DeleteAsync(url).Result;
 
             return response.StatusCode == HttpStatusCode.NoContent;
+        }
+
+        public IList<ProgramAffiliate> GetProgramAffiliates(string programId)
+        {
+            var url = GetRequestUrl("/programs/{0}/affiliates/", programId);
+
+            var response = HttpClient.GetAsync(url).Result;
+
+            return GetResponse<IList<ProgramAffiliate>>(response);
         }
 
         public ProgramAffiliate GetProgramAffiliate(string programId, string affiliateId)

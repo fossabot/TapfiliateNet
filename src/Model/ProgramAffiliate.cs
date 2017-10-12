@@ -10,6 +10,12 @@ namespace TapfiliateNet.Model
     public class ProgramAffiliate : AffiliateBase
     {
         [JsonProperty("referral_link")]
-        public string ReferralLink { get; set; }
+        public ReferralLink ReferralLink { get; set; }
+
+        [JsonProperty("coupon")]
+        public string Coupon { get; set; }
+
+        [JsonProperty("approved")]
+        public string Approved { get; set; }
     }
 }
