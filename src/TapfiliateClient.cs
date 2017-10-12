@@ -29,7 +29,7 @@ namespace TapfiliateNet
         /// <summary>
         /// The api version.
         /// </summary>
-        private const string _version = "1.4";
+        private const string _version = "1.6";
 
         /// <summary>
         /// The api key.
@@ -183,7 +183,7 @@ namespace TapfiliateNet
 
             var payLoad = JsonConvert.SerializeObject(new { affiliate = new { id = parentAffiliateId } });
 
-            var response = HttpClient.PostAsync(url, new StringContent(payLoad)).Result;
+            var response = HttpClient.PutAsync(url, new StringContent(payLoad)).Result;
             
             return response.StatusCode == HttpStatusCode.NoContent;
         }
@@ -308,7 +308,7 @@ namespace TapfiliateNet
 
         public bool ApproveCommission(string commissionId)
         {
-            var url = GetRequestUrl("/commissions/{0}/approval/", commissionId);
+            var url = GetRequestUrl("/commissions/{0}/approved/", commissionId);
 
             var response = HttpClient.PutAsync(url, null).Result;
 
@@ -317,7 +317,7 @@ namespace TapfiliateNet
 
         public bool DisapproveCommission(string commissionId)
         {
-            var url = GetRequestUrl("/commissions/{0}/approval/", commissionId);
+            var url = GetRequestUrl("/commissions/{0}/approved/", commissionId);
 
             var response = HttpClient.DeleteAsync(url).Result;
 
@@ -365,7 +365,7 @@ namespace TapfiliateNet
 
         public bool ApproveAffiliate(string programId, string affiliateId)
         {
-            var url = GetRequestUrl("/programs/{0}/affiliates/{1}/approval/", programId, affiliateId);
+            var url = GetRequestUrl("/programs/{0}/affiliates/{1}/approved/", programId, affiliateId);
 
             var response = HttpClient.PutAsync(url, null).Result;
 
@@ -374,7 +374,7 @@ namespace TapfiliateNet
 
         public bool DisapproveAffiliate(string programId, string affiliateId)
         {
-            var url = GetRequestUrl("/programs/{0}/affiliates/{1}/approval/", programId, affiliateId);
+            var url = GetRequestUrl("/programs/{0}/affiliates/{1}/approved/", programId, affiliateId);
 
             var response = HttpClient.DeleteAsync(url).Result;
 
