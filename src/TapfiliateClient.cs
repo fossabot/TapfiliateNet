@@ -464,9 +464,17 @@ namespace TapfiliateNet
                 return JsonConvert.DeserializeObject<T>(body);
             }
 
-            var error = JsonConvert.DeserializeObject<TapfiliateError>(body);
-            error.Code = (int)response.StatusCode;
+            // Handle errors
+            var error = new TapfiliateError();
 
+            // If response is different than 404 and 403, deserialize body to get the error payload
+            // Note: workaround to avoid deserialization issues since Tapfiliate returns HTML for 404 and 403.
+            if (response.StatusCode != HttpStatusCode.NotFound && response.StatusCode != HttpStatusCode.Forbidden)
+            {
+                error = JsonConvert.DeserializeObject<TapfiliateError>(body);
+            }
+
+            error.Code = (int)response.StatusCode;
             throw new TapfiliateException(error, body);
         }
 
