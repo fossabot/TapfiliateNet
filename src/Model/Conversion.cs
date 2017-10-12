@@ -28,10 +28,22 @@ namespace TapfiliateNet.Model
         public Program Program { get; set; }
 
         [JsonProperty("affiliate")]
-        public Affiliate Affiliate { get; set; }
+        public ConversionAffiliate Affiliate { get; set; }
 
         [JsonProperty("meta_data")]
         public IDictionary<string, string> Metadata { get; set; }
+    }
+
+    public class ConversionAffiliate
+    {
+        [JsonProperty("id")]
+        public string AffiliateId { get; set; }
+
+        [JsonProperty("firstname")]
+        public string FirstName { get; set; }
+
+        [JsonProperty("lastname")]
+        public string LastName { get; set; }
     }
 
     public class ConversionClick
