@@ -98,10 +98,10 @@ namespace TapfiliateNet
 
         public IList<Affiliate> GetAllAffiliates()
         {
-            return GetAffiliateList(null, null);
+            return GetAffiliateList();
         }
 
-        public IList<Affiliate> GetAffiliateList(string clickId, string sourceId)
+        public IList<Affiliate> GetAffiliateList(string clickId = null, string sourceId = null, string email = null)
         {
             var url = GetRequestUrl("/affiliates/");
 
@@ -112,6 +112,10 @@ namespace TapfiliateNet
             if (!string.IsNullOrEmpty(sourceId))
             {
                 url = AddQueryStringToUrl(url, "source_id", sourceId);
+            }
+            if (!string.IsNullOrEmpty(email))
+            {
+                url = AddQueryStringToUrl(url, "email", email);
             }
 
             var response = HttpClient.GetAsync(url).Result;
@@ -142,18 +146,18 @@ namespace TapfiliateNet
             return GetResponse<IDictionary<string, string>>(response);
         }
 
-        public bool SetAffiliateMetadata(string affiliateId, IDictionary<string, string> metadata)
+        public IDictionary<string, string> SetAffiliateMetadata(string affiliateId, IDictionary<string, string> metadata)
         {
             var url = GetRequestUrl("/affiliates/{0}/meta-data/", affiliateId);
 
             var payLoad = JsonConvert.SerializeObject(metadata);
 
-            var response = HttpClient.PostAsync(url, new StringContent(payLoad)).Result;
+            var response = HttpClient.PutAsync(url, new StringContent(payLoad)).Result;
 
-            return response.StatusCode == HttpStatusCode.NoContent;
+            return GetResponse<IDictionary<string, string>>(response);
         }
 
-        public bool UpdateAffiliateMetadataKey(string affiliateId, string key, string value)
+        public KeyValuePair<string, string> UpdateAffiliateMetadataKey(string affiliateId, string key, string value)
         {
             var url = GetRequestUrl("/affiliates/{0}/meta-data/{1}/", affiliateId, key);
 
@@ -161,7 +165,7 @@ namespace TapfiliateNet
 
             var response = HttpClient.PutAsync(url, new StringContent(payLoad)).Result;
 
-            return response.StatusCode == HttpStatusCode.NoContent;
+            return GetResponse<KeyValuePair<string, string>>(response);
         }
 
         public bool DeleteAffiliateMetadataKey(string affiliateId, string key)
