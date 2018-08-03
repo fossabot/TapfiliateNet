@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("HelpScoutNet")]
-[assembly: AssemblyDescription("HelpScoutNet is a .NET class library that provides an easy-to-use interface for the helpscout.net web api")]
+[assembly: AssemblyTitle("TapfiliateNet")]
+[assembly: AssemblyDescription("TapfiliateNet is a .NET class library that provides an easy-to-use interface for the Tapfiliate Api")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Mathieu Kempe")]
-[assembly: AssemblyProduct("HelpScoutNet")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("Carlos Boeing")]
+[assembly: AssemblyProduct("TapfiliateNet")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
