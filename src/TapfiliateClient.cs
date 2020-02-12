@@ -24,7 +24,7 @@ namespace TapfiliateNet
         /// <summary>
         /// The api endpoint.
         /// </summary>
-        private const string _baseUrl = "https://tapfiliate.com/api";
+        private const string _baseUrl = "https://api.tapfiliate.com";
 
         /// <summary>
         /// The api version.
